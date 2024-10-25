@@ -1,8 +1,6 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -12,6 +10,7 @@ public class AppPanel extends JPanel {
     Timer timer;
     int xAxis = 0;
     int yAxis = 0;
+    int dx = 5, dy = 5;
 
     AppPanel() {
         setSize(500, 500);
@@ -40,12 +39,16 @@ public class AppPanel extends JPanel {
     void recallPaintComp() {
         timer = new Timer(30, (abcd) -> {
 
-            if (xAxis < 450 && yAxis<450) {
-                xAxis += 5;
-                yAxis += 5;
-            } else if (xAxis > 450) {
-                xAxis -= 5;
+            xAxis += dx;
+            yAxis += dy;
+
+            if (xAxis <= 0 || xAxis >= getWidth() - 50) {
+                dx = -dx;
             }
+            if (yAxis <= 0 || yAxis >= getHeight() - 50) {
+                dy = -dy;
+            }
+
             repaint();
         });
         timer.start();
