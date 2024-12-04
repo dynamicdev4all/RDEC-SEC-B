@@ -19,24 +19,36 @@ public class AppPanel extends JPanel {
     Car car1;
     Car car2;
     Car car3;
-    
+
+    Bird b1 = new Bird();
+    int initIndex = 0;
+    int birdX = 150;
+    BufferedImage birdArr[] = b1.cutSpriteSheet();
 
     AppPanel() {
         setSize(500, 500);
         // setBackground(Color.BLUE);
-        car1 = new Car(200, 20, 100, 150, "car.png", 10);
-        car2 = new Car(200, 300, 100, 150, "car.png", 1);
-        car3 = new Car(350, 300, 100, 150, "car.png", 50);
+        // car1 = new Car(200, 20, 100, 150, "running_sprite.jpg", 10);
+        // car2 = new Car(200, 300, 100, 150, "dancer.gif", 1);
+        // car3 = new Car(350, 300, 100, 150, "dancer.gif", 50);
         callPaintAgain();
         addKeyboardControls();
         setFocusable(true);
     }
 
+    void paintBird(Graphics pen) {
+        // for (int i = 0; i < birdArr.length; i++) {
+        b1.showBird(pen, birdArr[initIndex], birdX);
+        // System.out.println(i);
+        // }
+    }
+
     @Override
     protected void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        car1.showCar(pen);
-        car2.showCar(pen);
+        paintBird(pen);
+        // car1.showCar(pen);
+        // car2.showCar(pen);
         // car3.showCar(pen);
     }
 
@@ -45,6 +57,14 @@ public class AppPanel extends JPanel {
             // car1.moveCar();
             // car2.moveCar();
             // car3.moveCar();
+            birdX += 5;
+            if (birdX > 500) {
+                birdX = -194;
+            }
+            initIndex++;
+            if (initIndex > 9) {
+                initIndex = 0;
+            }
             repaint();
         });
         timer.start();
