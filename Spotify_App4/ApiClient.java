@@ -1,6 +1,10 @@
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.*;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ApiClient {
     public static void main(String[] args) {
@@ -12,7 +16,28 @@ public class ApiClient {
             HttpResponse<String> res = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (res.statusCode() == 200) {
-                System.out.println(res.body());
+                String completeData = res.body();
+
+                JSONObject dataObject = new JSONObject(completeData);
+
+                JSONArray dataArray = dataObject.getJSONArray("results");
+
+                ArrayList<SongModel> songList = new ArrayList<>();
+                SongModel song;
+                for (int i = 0; i < dataArray.length(); i++) {
+                    JSONObject songObject = dataArray.getJSONObject(i);
+                    song = new SongModel(
+                            songObject.getString("trackName"),
+                            songObject.getString("artistName"),
+                            songObject.getString("artworkUrl100"),
+                            songObject.getString("previewUrl"),
+                            Float.parseFloat(songObject.getString("trackPrice"))
+                            
+                            );
+
+                    songList.add(song);
+                    // System.out.println(songObject.getString("trackName"));
+                }
             } else {
                 System.out.println("Some error occured");
             }
