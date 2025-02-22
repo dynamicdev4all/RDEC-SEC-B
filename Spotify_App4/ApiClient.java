@@ -7,6 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ApiClient {
+    static ArrayList<SongModel> songList;
+
+    static ArrayList<SongModel> getSongList() {
+        return songList;
+    }
+
     public static void main(String[] args) {
         String address = "https://itunes.apple.com/search?term=jack+johnson&limit=25";
         HttpClient client = HttpClient.newHttpClient();
@@ -22,7 +28,7 @@ public class ApiClient {
 
                 JSONArray dataArray = dataObject.getJSONArray("results");
 
-                ArrayList<SongModel> songList = new ArrayList<>();
+                songList = new ArrayList<>();
                 SongModel song;
                 for (int i = 0; i < dataArray.length(); i++) {
                     JSONObject songObject = dataArray.getJSONObject(i);
@@ -32,12 +38,14 @@ public class ApiClient {
                             songObject.getString("artworkUrl100"),
                             songObject.getString("previewUrl"),
                             Float.parseFloat(songObject.getString("trackPrice"))
-                            
-                            );
+
+                    );
 
                     songList.add(song);
                     // System.out.println(songObject.getString("trackName"));
                 }
+
+                System.out.println(songList.get(0).songImageUrl);
             } else {
                 System.out.println("Some error occured");
             }
