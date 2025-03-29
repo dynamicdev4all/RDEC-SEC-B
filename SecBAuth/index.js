@@ -52,11 +52,37 @@ server.post("/create-new-user", async (request, response) => {
         isActive: false,
       });
       await newUser.save();
+      // sen
       console.log("Registration Success");
     }
   } catch (error) {
     console.log("Registration Failed");
   }
+});
+
+server.post("/login-user", async (request, response) => {
+  try {
+    const { email, password } = request.body;
+
+    const loginUser = await userModel.findOne({ email: email });
+    if (loginUser) {
+      if (loginUser.password == password && loginUser.isActive) {
+        console.log("Login Success");
+      } else if (loginUser.password == password && !loginUser.isActive) {
+        console.log("Please Activate your Account");
+      } else if (loginUser.password != password) {
+        console.log("Invaild Password");
+      }
+    } else {
+      console.log("User does not exist, please try registration");
+    }
+  } catch (error) {
+    console.log("Registration Failed");
+  }
+});
+
+server.get("/verify-email", (request, response) => {
+  console.log("Hello I am called ", request.query.token)
 });
 server.get("/*", (request, response) => {
   response.sendFile(path.join(__dirname, "public", "fourOfour.html"));
