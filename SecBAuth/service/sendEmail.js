@@ -1,19 +1,22 @@
 const nodemailer = require("nodemailer")
-
+const jwt = require("jsonwebtoken")
+const JWT_SECRET= "this_is_top_secret"
+// const sentToken = 123456;
 
 const sendMail = (email, name)=>{
     const transport = nodemailer.createTransport({
         service:"gmail",
         auth:{
-            user:"<your-emai-goes-here>",
-            pass:"<your-app-passcode-goes-here>"
+            user:"test.duck.mail@gmail.com",
+            pass:"bzqplrqcmgnoqxjb"
         }
     })
 
-    const verificationLink = "http://localhost:5252/verify-email?token=123456";
+    const token =  jwt.sign({email}, JWT_SECRET, {expiresIn:"2m"})
+    const verificationLink = `http://localhost:5252/user/verify-email?token=${token}`;
     
     const mail =({
-        from:"<your-email-goes-here>",
+        from:"test.duck.mail@gmail.com",
         to:email,
         subject:"Email Verification",
         html:`
@@ -42,8 +45,9 @@ const sendMail = (email, name)=>{
             console.log("Email not sent ",err)
         }else{
             console.log("Email sent Success")
+            return token;
         }
     })
 }
 
-sendMail("piebytwo014@gmail.com", "Vivek")
+module.exports = sendMail;

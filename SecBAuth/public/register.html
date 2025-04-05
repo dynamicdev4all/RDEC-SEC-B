@@ -3,21 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #4e5053;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #388e3c;
+        }
+    </style>
 </head>
 <body>
-    <h1>Register Page</h1>
-    <form action="/create-new-user" method="post">
-        <label for="username">Username : </label>
-        <input type="text" id="username" name="username">
-        <br>
-        <label for="email">Email : </label>
-        <input type="email" id="email" name="email">
-        <br>
-        <label for="password">Password : </label>
-        <input type="password" id="password" name="password">
-        <br>
-        <button type="submit">Register Now</button>
-    </form>
+    <div>
+        <h1>Register Page</h1>
+        <form action="/user/create-new-user" method="post">
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+            <br>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+            <br>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <br>
+            <button type="submit">Register Now</button>
+        </form>
+    </div>
 </body>
 </html>
