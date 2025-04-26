@@ -12,7 +12,7 @@ const sendMail = (email, name)=>{
         }
     })
 
-    const token =  jwt.sign({email}, JWT_SECRET, {expiresIn:"2m"})
+    const token =  jwt.sign({email}, JWT_SECRET, {expiresIn:"10m"})
     const verificationLink = `http://localhost:5252/user/verify-email?token=${token}`;
     
     const mail =({

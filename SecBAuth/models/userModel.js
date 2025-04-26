@@ -6,6 +6,6 @@ const userSchema = mongoose.Schema({
   isActive: Boolean,
 });
 
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("student", userSchema);
 
 module.exports=userModel;

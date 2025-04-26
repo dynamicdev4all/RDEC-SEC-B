@@ -50,11 +50,23 @@ const userLogout = ()=>{
     
 }
 
-const userVerification = (recToken)=>{
+const userVerification = async (recToken)=>{
   try {
     const decodedToken = jwt.verify(recToken, JWT_SECRET);
     const userEmail = decodedToken.email;
-    console.log("Verification Success ",userEmail)
+
+
+
+    const user = await userModel.findOneAndUpdate(
+      {email: userEmail },
+      {isActive: true} ,
+      {new : true}
+    );
+      if (user.isActive == true) {
+        console.log("Verification Success");
+      } else if (user.isActive == false) {
+        console.log("Verification Failed");
+      }
   } catch (error) {
     if(jwt.TokenExpiredError){
       console.log("The token is expired")
@@ -63,7 +75,7 @@ const userVerification = (recToken)=>{
     }
   }
  
-}
+} 
 
 const userAccountPasswordReset = ()=>{
     
